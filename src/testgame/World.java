@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,7 +33,7 @@ public class World extends JFrame {
 		contentPane = new JPanel();
 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setBackground(Color.BLACK);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -57,9 +59,8 @@ public class World extends JFrame {
 				// System.out.println("timer");
 				try {
 
+					move();
 					repaint();
-					ship.move();
-					box.move();
 
 				} catch (Exception e) {
 					System.out.println("Thread");
@@ -67,7 +68,7 @@ public class World extends JFrame {
 			}
 		};
 
-		int delay = 50;
+		int delay = 35;
 		Timer timer = new Timer(delay, taskPerformer);
 		timer.setInitialDelay(delay);
 
@@ -88,10 +89,13 @@ public class World extends JFrame {
 				box.keyPressed(e);
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					if (start = false) {
-						txtrTitle.setVisible(false);
+						txtrTitle.setEnabled(false);
+						txtrPressStartTo.setEnabled(false);
 						start = true;
 					} else if (start = true) {
 						timer.start();
+					} else if (timer.isRunning()) {
+						shots.add(new Shot(ship.getX(), ship.getY(), 15));
 					}
 				}
 			}
@@ -106,12 +110,24 @@ public class World extends JFrame {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		ship.paint(g2d);
 		box.paint(g2d);
+		for (Shot temp : shots) {
+			temp.paint(g2d);
+		}
+	}
+
+	private void move() {
+		ship.move();
+		box.move();
+		for (Shot temp : shots) {
+			temp.move();
+		}
 	}
 
 	private JPanel contentPane;
 	private Spaceship ship = new Spaceship(this);
 	private SpaceshipHitbox box = new SpaceshipHitbox(this);
 	private boolean start = false;
+	private ArrayList<Shot> shots = new ArrayList<Shot>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

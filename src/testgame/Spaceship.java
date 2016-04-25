@@ -44,4 +44,20 @@ public class Spaceship extends JPanel {
 	public void setX(int x) {
 		this.x = x;
 	}
+
+	public int getXa() {
+		return xa;
+	}
+
+	public void setXa(int xa) {
+		this.xa = xa;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
 }

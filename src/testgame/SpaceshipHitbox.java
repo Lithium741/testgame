@@ -10,7 +10,7 @@ public class SpaceshipHitbox extends Spaceship {
 	}
 
 	public void paint(Graphics2D g) {
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(0, 0, 0, 0));
 		g.fillRect(super.getX(), 392, 30, 20);
 	}
 }
