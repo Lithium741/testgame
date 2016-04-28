@@ -26,8 +26,8 @@ public class World extends JFrame {
 
 	private JPanel contentPane;
 	private Spaceship ship = new Spaceship(this);
-	private boolean start = false;
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
+	private boolean start = false;
 
 	public World() {
 
@@ -78,25 +78,36 @@ public class World extends JFrame {
 		timer.setInitialDelay(delay);
 
 		addKeyListener(new KeyListener() {
+
 			@Override
 			public void keyTyped(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				ship.keyReleased(e);
+				if (e.getKeyCode() == 37) {
+					ship.keyReleased(e);
+				} else if (e.getKeyCode() == 39) {
+					ship.keyReleased(e);
+				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				ship.keyPressed(e);
+				if (e.getKeyCode() == 37) {
+					ship.keyPressed(e);
+				}
+				if (e.getKeyCode() == 39) {
+					ship.keyPressed(e);
+				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					if (start = false) {
-						start = true;
-					} else if (start = true) {
-						timer.start();
+					if (start = true) {
 						txtrTitle.setVisible(false);
 						txtrPressStartTo.setVisible(false);
+						timer.start();
+						start = false;
 					}
 					shots.add(new Shot(ship.getX(), ship.getY(), 40));
 				}
