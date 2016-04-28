@@ -37,9 +37,9 @@ public class Spaceship extends Sprite {
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 37)
-			xa = -2;
+			xa = -10;
 		if (e.getKeyCode() == 39)
-			xa = 2;
+			xa = 10;
 	}
 
 	public Rectangle returnBounds() {

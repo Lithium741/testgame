@@ -98,7 +98,7 @@ public class World extends JFrame {
 						txtrTitle.setVisible(false);
 						txtrPressStartTo.setVisible(false);
 					}
-					shots.add(new Shot(ship.getX(), ship.getY(), 10));
+					shots.add(new Shot(ship.getX(), ship.getY(), 40));
 				}
 			}
 		});
