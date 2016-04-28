@@ -12,8 +12,8 @@ public class Spaceship extends Sprite {
 	private int x = 150;
 	private int xa = 0;
 	private int y = 710;
-	private int WIDTH = 30;
-	private int HEIGHT = 15;
+	private int WIDTH = 15;
+	private int HEIGHT = 20;
 	private World world;
 
 	public Spaceship(World world) {
@@ -28,8 +28,7 @@ public class Spaceship extends Sprite {
 
 	public void paint(Graphics2D g) {
 		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, WIDTH, HEIGHT - (HEIGHT / 2));
-		g.fillOval(x + 8, y - 8, HEIGHT, HEIGHT);
+		g.fillRect(x, y, WIDTH, HEIGHT);
 	}
 
 	public void keyReleased(KeyEvent e) {
