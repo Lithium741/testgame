@@ -30,6 +30,8 @@ public class World extends JFrame {
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<EnemyShip> eShip = new ArrayList<EnemyShip>();
 	private boolean start = false;
+	int a = 0;
+	World test = this;
 
 	public World() {
 
@@ -62,12 +64,16 @@ public class World extends JFrame {
 
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				// ...Perform a task...
-				// System.out.println("timer");
 				try {
-
 					move();
 					repaint();
+					a++;
+					if (a == 100) {
+						int b = (int) Math.random() * 585;
+						 eShip.add(new RedShip(a, 2, test));
+						System.out.println(a);
+						a = 0;
+					}
 
 				} catch (Exception e) {
 					System.out.println("Thread");
@@ -78,17 +84,6 @@ public class World extends JFrame {
 		int delay = 35;
 		Timer timer = new Timer(delay, taskPerformer);
 		timer.setInitialDelay(delay);
-		
-		ActionListener taskPerformer2 = new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				int a = (int) Math.random() * contentPane.getWidth();
-				eShip.add(new EnemyShip(a, 2, this));
-			}
-		};
-
-		int delay2 = 500;
-		Timer timer2 = new Timer(delay, taskPerformer2);
-		timer2.setInitialDelay(delay);
 
 		addKeyListener(new KeyListener() {
 
@@ -142,7 +137,7 @@ public class World extends JFrame {
 
 	private void move() {
 		ship.move();
-		
+
 		for (Shot temp : shots) {
 			if (temp.getY() > 0) {
 				temp.move();
@@ -168,5 +163,21 @@ public class World extends JFrame {
 				}
 			}
 		});
+	}
+
+	public int getA() {
+		return a;
+	}
+
+	public void setA(int a) {
+		this.a = a;
+	}
+
+	public World getTest() {
+		return test;
+	}
+
+	public void setTest(World test) {
+		this.test = test;
 	}
 }

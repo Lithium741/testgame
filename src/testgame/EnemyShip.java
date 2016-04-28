@@ -11,7 +11,11 @@ public class EnemyShip extends Sprite {
 	private int SPEED;
 	private boolean border = true;
 	World world;
-	
+
+	public EnemyShip() {
+
+	}
+
 	public EnemyShip(int x, int SPEED, World world) {
 		this.x = x;
 		this.SPEED = SPEED;
