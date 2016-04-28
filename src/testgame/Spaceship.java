@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 
 public class Spaceship extends JPanel {
-	private int x = 50;
+	private int x = 150;
 	private int xa = 0;
 	private World world;
 
@@ -16,14 +16,15 @@ public class Spaceship extends JPanel {
 	}
 
 	public void move() {
-		if (x + xa > 0 && x + xa < world.getWidth() - 60)
+		if (x + xa > 0 && x + xa < world.getWidth() - 60) {
 			x = x + xa;
+		}
 	}
 
 	public void paint(Graphics2D g) {
 		g.setColor(Color.YELLOW);
 		g.fillRect(x, 400, 30, 10);
-		g.fillOval(x+8, 392, 15, 15);
+		g.fillOval(x + 8, 392, 15, 15);
 	}
 
 	public void keyReleased(KeyEvent e) {

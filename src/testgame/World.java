@@ -24,6 +24,12 @@ import java.awt.event.KeyAdapter;
 
 public class World extends JFrame {
 
+	private JPanel contentPane;
+	private Spaceship ship = new Spaceship(this);
+	private SpaceshipHitbox box = new SpaceshipHitbox(this);
+	private boolean start = false;
+	private ArrayList<Shot> shots = new ArrayList<Shot>();
+
 	public World() {
 
 		setFocusable(true);
@@ -94,9 +100,8 @@ public class World extends JFrame {
 						start = true;
 					} else if (start = true) {
 						timer.start();
-					} else if (timer.isRunning()) {
-						shots.add(new Shot(ship.getX(), ship.getY(), 15));
 					}
+					shots.add(new Shot(ship.getX(), 50));
 				}
 			}
 		});
@@ -119,15 +124,18 @@ public class World extends JFrame {
 		ship.move();
 		box.move();
 		for (Shot temp : shots) {
-			temp.move();
+			if (temp.getY() > 0) {
+				temp.move();
+			} else if (temp.getY() == 0) {
+				removeShot(temp); 
+				System.out.println(shots.size());
+			}
 		}
 	}
 
-	private JPanel contentPane;
-	private Spaceship ship = new Spaceship(this);
-	private SpaceshipHitbox box = new SpaceshipHitbox(this);
-	private boolean start = false;
-	private ArrayList<Shot> shots = new ArrayList<Shot>();
+	public void removeShot(Shot temp) {
+		shots.remove(temp);
+	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
