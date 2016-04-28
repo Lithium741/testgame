@@ -21,7 +21,7 @@ public class Spaceship extends Sprite {
 	}
 
 	public void move() {
-		if (x + xa > 0 && x + xa < world.getWidth() - 60) {
+		if (x + xa > 0 && x + xa < world.getWidth() - 15) {
 			x = x + xa;
 		}
 	}

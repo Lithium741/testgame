@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ public class World extends JFrame {
 	private JPanel contentPane;
 	private Spaceship ship = new Spaceship(this);
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
+	private ArrayList<EnemyShip> eShip = new ArrayList<EnemyShip>();
 	private boolean start = false;
 
 	public World() {
@@ -46,8 +48,8 @@ public class World extends JFrame {
 		txtrTitle.setBackground(Color.BLACK);
 		txtrTitle.setForeground(Color.YELLOW);
 		txtrTitle.setFont(new Font("Impact", Font.PLAIN, 38));
-		txtrTitle.setText("Impact");
-		txtrTitle.setBounds(222, 182, 279, 45);
+		txtrTitle.setText("Test");
+		txtrTitle.setBounds(237, 179, 279, 45);
 		contentPane.add(txtrTitle);
 
 		JTextArea txtrPressStartTo = new JTextArea();
@@ -76,6 +78,17 @@ public class World extends JFrame {
 		int delay = 35;
 		Timer timer = new Timer(delay, taskPerformer);
 		timer.setInitialDelay(delay);
+		
+		ActionListener taskPerformer2 = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				int a = (int) Math.random() * contentPane.getWidth();
+				eShip.add(new EnemyShip(a, 2, this));
+			}
+		};
+
+		int delay2 = 500;
+		Timer timer2 = new Timer(delay, taskPerformer2);
+		timer2.setInitialDelay(delay);
 
 		addKeyListener(new KeyListener() {
 
@@ -129,6 +142,7 @@ public class World extends JFrame {
 
 	private void move() {
 		ship.move();
+		
 		for (Shot temp : shots) {
 			if (temp.getY() > 0) {
 				temp.move();

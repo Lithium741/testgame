@@ -9,8 +9,8 @@ public class Shot extends Sprite {
 
 	private int x;
 	private int y;
-	private int WIDTH = 7;
-	private int HEIGHT = 7;
+	private int WIDTH;
+	private int HEIGHT;
 	private int shotSpeed;
 
 	public Shot(int x, int y, int shotSpeed) {
