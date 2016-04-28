@@ -21,7 +21,7 @@ public class Shot extends Sprite {
 
 	public void paint(Graphics g) {
 		g.setColor(Color.YELLOW);
-		g.fillOval(x + 15, y, WIDTH, HEIGHT);
+		g.fillOval(x + 4, y, WIDTH, HEIGHT);
 	}
 
 	public void move() {

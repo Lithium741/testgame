@@ -95,6 +95,8 @@ public class World extends JFrame {
 						start = true;
 					} else if (start = true) {
 						timer.start();
+						txtrTitle.setVisible(false);
+						txtrPressStartTo.setVisible(false);
 					}
 					shots.add(new Shot(ship.getX(), ship.getY(), 10));
 				}
