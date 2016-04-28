@@ -70,7 +70,7 @@ public class World extends JFrame {
 					a++;
 					if (a == 100) {
 						int b = (int) Math.random() * 585;
-						 eShip.add(new RedShip(a, 2, test));
+						eShip.add(new RedShip(b, 2, test));
 						System.out.println(a);
 						a = 0;
 					}
@@ -133,6 +133,9 @@ public class World extends JFrame {
 		for (Shot temp : shots) {
 			temp.paint(g2d);
 		}
+		for (EnemyShip temp : eShip) {
+			temp.paint(g2d);
+		}
 	}
 
 	private void move() {
@@ -146,10 +149,21 @@ public class World extends JFrame {
 				System.out.println(shots.size());
 			}
 		}
+		for (EnemyShip temp : eShip) {
+			if (temp.getY() > test.getWidth()) {
+				temp.move();
+			} else if (temp.getY() == 0) {
+				removeShip(temp);
+			}
+		}
 	}
 
 	public void removeShot(Shot temp) {
 		shots.remove(temp);
+	}
+
+	public void removeShip(EnemyShip temp) {
+		eShip.remove(temp);
 	}
 
 	public static void main(String[] args) {
