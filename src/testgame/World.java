@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
@@ -28,10 +29,10 @@ public class World extends JFrame {
 	private JPanel contentPane;
 	private Spaceship ship = new Spaceship(this);
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
-	private ArrayList<EnemyShip> eShip = new ArrayList<EnemyShip>();
+	private ArrayList<RedShip> RShip = new ArrayList<RedShip>();
 	private boolean start = false;
 	int a = 0;
-	World test = this;
+	
 
 	public World() {
 
@@ -42,7 +43,7 @@ public class World extends JFrame {
 		contentPane = new JPanel();
 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.BLACK);
+		contentPane.setBackground(Color.WHITE);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -61,8 +62,17 @@ public class World extends JFrame {
 		txtrPressStartTo.setText("Press fire to start");
 		txtrPressStartTo.setBounds(217, 221, 206, 62);
 		contentPane.add(txtrPressStartTo);
+		
+		GameBoard p = new GameBoard(ship, shots);
+		 p.setBackground(Color.BLACK);
+		 p.setLocation(0, 0);
+		 p.setSize(569, 792);
+		////	panel.setForeground(Color.RED);
+		//panel.setBounds(0, 0, 238, 792);
+		contentPane.add(p);
 
 		ActionListener taskPerformer = new ActionListener() {
+			
 			public void actionPerformed(ActionEvent evt) {
 				try {
 					move();
@@ -70,7 +80,9 @@ public class World extends JFrame {
 					a++;
 					if (a == 100) {
 						int b = (int) Math.random() * 585;
-						eShip.add(new RedShip(b, 2, test));
+						
+						
+						RShip.add(new RedShip(b, 2, getFrame()));
 						System.out.println(a);
 						a = 0;
 					}
@@ -124,19 +136,6 @@ public class World extends JFrame {
 
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		ship.paint(g2d);
-		for (Shot temp : shots) {
-			temp.paint(g2d);
-		}
-		for (EnemyShip temp : eShip) {
-			temp.paint(g2d);
-		}
-	}
 
 	private void move() {
 		ship.move();
@@ -149,8 +148,8 @@ public class World extends JFrame {
 				System.out.println(shots.size());
 			}
 		}
-		for (EnemyShip temp : eShip) {
-			if (temp.getY() > test.getWidth()) {
+		for (EnemyShip temp : RShip) {
+			if (temp.getY() > getFrame().getWidth()) {
 				temp.move();
 			} else if (temp.getY() == 0) {
 				removeShip(temp);
@@ -163,7 +162,7 @@ public class World extends JFrame {
 	}
 
 	public void removeShip(EnemyShip temp) {
-		eShip.remove(temp);
+		RShip.remove(temp);
 	}
 
 	public static void main(String[] args) {
@@ -187,11 +186,7 @@ public class World extends JFrame {
 		this.a = a;
 	}
 
-	public World getTest() {
-		return test;
-	}
-
-	public void setTest(World test) {
-		this.test = test;
+	public World getFrame() {
+		return this;
 	}
 }

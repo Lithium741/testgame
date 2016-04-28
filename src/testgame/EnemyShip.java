@@ -3,7 +3,7 @@ package testgame;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class EnemyShip extends Sprite {
+public abstract class EnemyShip extends Sprite {
 	private int x;
 	private int y = 0;
 	private int WIDTH = 30;
@@ -14,17 +14,6 @@ public class EnemyShip extends Sprite {
 
 	public EnemyShip() {
 
-	}
-
-	public EnemyShip(int x, int SPEED, World world) {
-		this.x = x;
-		this.SPEED = SPEED;
-		this.world = world;
-	}
-
-	public void paint(Graphics2D g) {
-		g.setColor(Color.RED);
-		g.fillRect(x, y, WIDTH, HEIGHT);
 	}
 
 	public void move() {

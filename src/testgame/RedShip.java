@@ -1,6 +1,7 @@
 package testgame;
 
 import java.awt.Color;
+import javax.swing.JFrame;
 import java.awt.Graphics2D;
 
 public class RedShip extends EnemyShip {
@@ -10,12 +11,13 @@ public class RedShip extends EnemyShip {
 	private int HEIGHT = 15;
 	private int SPEED;
 	private boolean border = true;
-	World world;
+	JFrame world;
 	
-	public RedShip(int x, int SPEED, World world) {
+	public RedShip(int x, int SPEED, JFrame world) {
 		this.x = x;
 		this.SPEED = SPEED;
 		this.world = world;
+		System.out.println(world);
 	}
 
 	public void paint(Graphics2D g) {
