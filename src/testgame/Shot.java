@@ -5,20 +5,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-public class Shot extends JPanel {
+public class Shot extends Sprite {
 
 	private int x;
-	private int y = 400;
+	private int y;
+	private int WIDTH = 7;
+	private int HEIGHT = 7;
 	private int shotSpeed;
 
-	public Shot(int x, int shotSpeed) {
+	public Shot(int x, int y, int shotSpeed) {
 		this.x = x;
+		this.y = y;
 		this.shotSpeed = shotSpeed;
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillOval(x + 15, y, 5, 5);
+		g.setColor(Color.YELLOW);
+		g.fillOval(x + 15, y, WIDTH, HEIGHT);
 	}
 
 	public void move() {

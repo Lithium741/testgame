@@ -26,7 +26,6 @@ public class World extends JFrame {
 
 	private JPanel contentPane;
 	private Spaceship ship = new Spaceship(this);
-	private SpaceshipHitbox box = new SpaceshipHitbox(this);
 	private boolean start = false;
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 
@@ -55,8 +54,8 @@ public class World extends JFrame {
 		txtrPressStartTo.setFont(new Font("Impact", Font.PLAIN, 18));
 		txtrPressStartTo.setForeground(Color.YELLOW);
 		txtrPressStartTo.setBackground(Color.BLACK);
-		txtrPressStartTo.setText("Press start to start :D");
-		txtrPressStartTo.setBounds(203, 222, 206, 62);
+		txtrPressStartTo.setText("Press fire to start");
+		txtrPressStartTo.setBounds(217, 221, 206, 62);
 		contentPane.add(txtrPressStartTo);
 
 		ActionListener taskPerformer = new ActionListener() {
@@ -86,22 +85,18 @@ public class World extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				ship.keyReleased(e);
-				box.keyReleased(e);
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
 				ship.keyPressed(e);
-				box.keyPressed(e);
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					if (start = false) {
-						txtrTitle.setEnabled(false);
-						txtrPressStartTo.setEnabled(false);
 						start = true;
 					} else if (start = true) {
 						timer.start();
 					}
-					shots.add(new Shot(ship.getX(), 50));
+					shots.add(new Shot(ship.getX(), ship.getY(), 10));
 				}
 			}
 		});
@@ -114,7 +109,6 @@ public class World extends JFrame {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		ship.paint(g2d);
-		box.paint(g2d);
 		for (Shot temp : shots) {
 			temp.paint(g2d);
 		}
@@ -122,12 +116,11 @@ public class World extends JFrame {
 
 	private void move() {
 		ship.move();
-		box.move();
 		for (Shot temp : shots) {
 			if (temp.getY() > 0) {
 				temp.move();
 			} else if (temp.getY() == 0) {
-				removeShot(temp); 
+				removeShot(temp);
 				System.out.println(shots.size());
 			}
 		}

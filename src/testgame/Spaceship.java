@@ -6,9 +6,14 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JPanel;
 
-public class Spaceship extends JPanel {
+import com.sun.javafx.geom.Rectangle;
+
+public class Spaceship extends Sprite {
 	private int x = 150;
 	private int xa = 0;
+	private int y = 710;
+	private int WIDTH = 30;
+	private int HEIGHT = 15;
 	private World world;
 
 	public Spaceship(World world) {
@@ -23,8 +28,8 @@ public class Spaceship extends JPanel {
 
 	public void paint(Graphics2D g) {
 		g.setColor(Color.YELLOW);
-		g.fillRect(x, 400, 30, 10);
-		g.fillOval(x + 8, 392, 15, 15);
+		g.fillRect(x, y, WIDTH, HEIGHT - (HEIGHT / 2));
+		g.fillOval(x + 8, y - 8, HEIGHT, HEIGHT);
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -33,9 +38,13 @@ public class Spaceship extends JPanel {
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 37)
-			xa = -20;
+			xa = -2;
 		if (e.getKeyCode() == 39)
-			xa = 20;
+			xa = 2;
+	}
+
+	public Rectangle returnBounds() {
+		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
 
 	public int getX() {
@@ -52,6 +61,30 @@ public class Spaceship extends JPanel {
 
 	public void setXa(int xa) {
 		this.xa = xa;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getWIDTH() {
+		return WIDTH;
+	}
+
+	public void setWIDTH(int wIDTH) {
+		WIDTH = wIDTH;
+	}
+
+	public int getHEIGHT() {
+		return HEIGHT;
+	}
+
+	public void setHEIGHT(int hEIGHT) {
+		HEIGHT = hEIGHT;
 	}
 
 	public World getWorld() {
