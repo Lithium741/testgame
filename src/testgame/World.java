@@ -32,7 +32,6 @@ public class World extends JFrame {
 	private ArrayList<RedShip> RShip = new ArrayList<RedShip>();
 	private boolean start = false;
 	int a = 0;
-	
 
 	public World() {
 
@@ -62,33 +61,26 @@ public class World extends JFrame {
 		txtrPressStartTo.setText("Press fire to start");
 		txtrPressStartTo.setBounds(217, 221, 206, 62);
 		contentPane.add(txtrPressStartTo);
-		
-		GameBoard p = new GameBoard(ship, shots);
-		 p.setBackground(Color.BLACK);
-		 p.setLocation(0, 0);
-		 p.setSize(569, 792);
-		////	panel.setForeground(Color.RED);
-		//panel.setBounds(0, 0, 238, 792);
+
+		GameBoard p = new GameBoard(ship, shots, RShip);
+		p.setBackground(Color.BLACK);
+		p.setLocation(0, 0);
+		p.setSize(569, 792);
 		contentPane.add(p);
 
 		ActionListener taskPerformer = new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent evt) {
 				try {
 					move();
 					repaint();
 					a++;
-					if (a == 100) {
-						int b = (int) Math.random() * 585;
-						
-						
-						RShip.add(new RedShip(b, 2, getFrame()));
-						System.out.println(a);
+					if (a == 50) {
+						RShip.add(new RedShip((int) (Math.random() * 585), 10, 2, p, (int) (Math.random() * 1)));
 						a = 0;
 					}
 
 				} catch (Exception e) {
-					System.out.println("Thread");
 				}
 			}
 		};
@@ -136,7 +128,6 @@ public class World extends JFrame {
 
 	}
 
-
 	private void move() {
 		ship.move();
 
@@ -145,14 +136,23 @@ public class World extends JFrame {
 				temp.move();
 			} else if (temp.getY() == 0) {
 				removeShot(temp);
-				System.out.println(shots.size());
 			}
 		}
-		for (EnemyShip temp : RShip) {
-			if (temp.getY() > getFrame().getWidth()) {
+		for (RedShip temp : RShip) {
+			if (temp.getY() < 710) {
 				temp.move();
-			} else if (temp.getY() == 0) {
-				removeShip(temp);
+			} else if (temp.getY() == 710) {
+				removeRShip(temp);
+			}
+		}
+		for (Shot temp : shots) {
+			for (RedShip temps : RShip) {
+				if (temp.getBounds().intersects(temps.getBounds())) {
+					removeShot(temp);
+					temp.setVisible(false);
+					removeRShip(temps);
+					temps.setVisible(false);
+				}
 			}
 		}
 	}
@@ -161,7 +161,7 @@ public class World extends JFrame {
 		shots.remove(temp);
 	}
 
-	public void removeShip(EnemyShip temp) {
+	public void removeRShip(RedShip temp) {
 		RShip.remove(temp);
 	}
 

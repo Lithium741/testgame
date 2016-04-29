@@ -1,10 +1,12 @@
 package testgame;
 
-import javax.swing.JPanel;
+import java.util.ArrayList;
+
+import javax.swing.JComponent;
 
 import com.sun.javafx.geom.Rectangle;
 
-public class Sprite extends JPanel {
+public class Sprite extends JComponent {
 
 	private int x;
 	private int y;

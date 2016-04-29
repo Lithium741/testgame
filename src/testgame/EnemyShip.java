@@ -2,32 +2,36 @@ package testgame;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 public abstract class EnemyShip extends Sprite {
 	private int x;
-	private int y = 0;
+	private int y;
 	private int WIDTH = 30;
 	private int HEIGHT = 15;
 	private int SPEED;
 	private boolean border = true;
-	World world;
-
+	private JComponent gameBoard;
 	public EnemyShip() {
 
 	}
 
 	public void move() {
 		y += SPEED;
-		if (x == 0) {
+		if (x <= 10) {
 			border = true;
-		} else if (x == world.getWidth()) {
+		} else if (x >= 560) {
 			border = false;
 		}
 		if (border == true) {
-			x += SPEED;
+			x += SPEED + 8;
 		} else if (border == false) {
-			x -= SPEED;
+			x -= SPEED + 8;
 		}
+		
 	}
 
 	public int getX() {
@@ -78,11 +82,11 @@ public abstract class EnemyShip extends Sprite {
 		this.border = border;
 	}
 
-	public World getWorld() {
-		return world;
+	public JComponent getGameBoard() {
+		return gameBoard;
 	}
 
-	public void setWorld(World world) {
-		this.world = world;
+	public void setGameBoard(JComponent gameBoard) {
+		this.gameBoard = gameBoard;
 	}
 }
