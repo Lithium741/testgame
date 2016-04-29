@@ -11,7 +11,7 @@ import com.sun.javafx.geom.Rectangle;
 public class Spaceship extends Sprite {
 	private int x = 150;
 	private int xa = 0;
-	private int y = 710;
+	private int y = 770;
 	private int WIDTH = 15;
 	private int HEIGHT = 20;
 	private World world;
@@ -37,9 +37,9 @@ public class Spaceship extends Sprite {
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 37)
-			xa = -10;
+			xa = -3;
 		if (e.getKeyCode() == 39)
-			xa = 10;
+			xa = 3;
 	}
 
 	public Rectangle returnBounds() {

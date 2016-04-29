@@ -26,12 +26,16 @@ import java.awt.event.KeyAdapter;
 
 public class World extends JFrame {
 
+	GameBoard p;
 	private JPanel contentPane;
 	private Spaceship ship = new Spaceship(this);
+	JTextArea txtrScore;
+	private int score = 0;
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<RedShip> RShip = new ArrayList<RedShip>();
 	private boolean start = false;
 	int a = 0;
+	int eSpeed = 1;
 
 	public World() {
 
@@ -46,23 +50,39 @@ public class World extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		txtrScore = new JTextArea();
+		txtrScore.setBackground(Color.BLACK);
+		txtrScore.setForeground(Color.YELLOW);
+		txtrScore.setFont(new Font("Impact", Font.PLAIN, 20));
+		txtrScore.setText("Score: " + score);
+		txtrScore.setBounds(1, 5, 100, 45);
+		contentPane.add(txtrScore);
+
+		JTextArea txtrLife = new JTextArea();
+		txtrLife.setBackground(Color.BLACK);
+		txtrLife.setForeground(Color.RED);
+		txtrLife.setFont(new Font("Impact", Font.PLAIN, 20));
+		txtrLife.setText("Life");
+		txtrLife.setBounds(324, 5, 41, 45);
+		contentPane.add(txtrLife);
+
 		JTextArea txtrTitle = new JTextArea();
 		txtrTitle.setBackground(Color.BLACK);
 		txtrTitle.setForeground(Color.YELLOW);
 		txtrTitle.setFont(new Font("Impact", Font.PLAIN, 38));
-		txtrTitle.setText("Test");
-		txtrTitle.setBounds(237, 179, 279, 45);
+		txtrTitle.setText("Impact");
+		txtrTitle.setBounds(217, 180, 279, 45);
 		contentPane.add(txtrTitle);
 
 		JTextArea txtrPressStartTo = new JTextArea();
 		txtrPressStartTo.setFont(new Font("Impact", Font.PLAIN, 18));
 		txtrPressStartTo.setForeground(Color.YELLOW);
 		txtrPressStartTo.setBackground(Color.BLACK);
-		txtrPressStartTo.setText("Press fire to start");
-		txtrPressStartTo.setBounds(217, 221, 206, 62);
+		txtrPressStartTo.setText("Press space to fire");
+		txtrPressStartTo.setBounds(207, 224, 206, 62);
 		contentPane.add(txtrPressStartTo);
 
-		GameBoard p = new GameBoard(ship, shots, RShip);
+		p = new GameBoard(ship, shots, RShip);
 		p.setBackground(Color.BLACK);
 		p.setLocation(0, 0);
 		p.setSize(569, 792);
@@ -75,8 +95,9 @@ public class World extends JFrame {
 					move();
 					repaint();
 					a++;
-					if (a == 50) {
-						RShip.add(new RedShip((int) (Math.random() * 585), 10, 2, p, (int) (Math.random() * 1)));
+					if (a == 150) {
+						RShip.add(
+								new RedShip((int) (Math.random() * 585), 10, eSpeed, p, (int) (Math.random() * 2) + 1));
 						a = 0;
 					}
 
@@ -85,7 +106,7 @@ public class World extends JFrame {
 			}
 		};
 
-		int delay = 35;
+		int delay = 5;
 		Timer timer = new Timer(delay, taskPerformer);
 		timer.setInitialDelay(delay);
 
@@ -121,7 +142,7 @@ public class World extends JFrame {
 						timer.start();
 						start = false;
 					}
-					shots.add(new Shot(ship.getX(), ship.getY(), 40));
+					shots.add(new Shot(ship.getX(), ship.getY(), 12));
 				}
 			}
 		});
@@ -129,8 +150,10 @@ public class World extends JFrame {
 	}
 
 	private void move() {
+		if (p.life.getWIDTH() == 0) {
+			System.exit(0);
+		}
 		ship.move();
-
 		for (Shot temp : shots) {
 			if (temp.getY() > 0) {
 				temp.move();
@@ -139,19 +162,21 @@ public class World extends JFrame {
 			}
 		}
 		for (RedShip temp : RShip) {
-			if (temp.getY() < 710) {
+			if (temp.getY() < 770) {
 				temp.move();
-			} else if (temp.getY() == 710) {
+			} else if (temp.getY() >= 770) {
 				removeRShip(temp);
+				p.life.sDamage();
 			}
 		}
-		for (Shot temp : shots) {
-			for (RedShip temps : RShip) {
-				if (temp.getBounds().intersects(temps.getBounds())) {
+		for (RedShip tempS : RShip) {
+			for (Shot temp : shots) {
+				if (temp.returnBounds().intersects(tempS.hitbox())) {
+					System.out.println("collision");
 					removeShot(temp);
-					temp.setVisible(false);
-					removeRShip(temps);
-					temps.setVisible(false);
+					removeRShip(tempS);
+					score++;
+					txtrScore.setText("Score: " + score);
 				}
 			}
 		}

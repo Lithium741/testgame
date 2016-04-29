@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class RedShip extends EnemyShip {
 	private int WIDTH = 30;
 	private int HEIGHT = 15;
-	private boolean border;
 	int LoR;
 
 	public RedShip(int x, int y, int SPEED, JComponent gameBoard, int LoR) {
@@ -19,10 +18,10 @@ public class RedShip extends EnemyShip {
 		super.setSPEED(SPEED);
 		super.setGameBoard(gameBoard);
 		this.LoR = LoR;
-		if (LoR == 0) {
-			border = false;
-		} else if (LoR == 1) {
-			border = true;
+		if (LoR == 1) {
+			super.setBorder(false);
+		} else if (LoR == 2) {
+			super.setBorder(true);
 		}
 	}
 
@@ -45,13 +44,5 @@ public class RedShip extends EnemyShip {
 
 	public void setHEIGHT(int hEIGHT) {
 		HEIGHT = hEIGHT;
-	}
-
-	public boolean isBorder() {
-		return border;
-	}
-
-	public void setBorder(boolean border) {
-		this.border = border;
 	}
 }

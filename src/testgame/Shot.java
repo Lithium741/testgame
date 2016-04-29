@@ -1,9 +1,8 @@
 package testgame;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import java.awt.*;
 
 public class Shot extends Sprite {
 
@@ -26,6 +25,10 @@ public class Shot extends Sprite {
 
 	public void move() {
 		y -= shotSpeed;
+	}
+	
+	public Rectangle returnBounds() {
+		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
 
 	public int getX() {

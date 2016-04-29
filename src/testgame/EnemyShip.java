@@ -1,9 +1,7 @@
 package testgame;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
-
+import java.awt.*;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -13,8 +11,9 @@ public abstract class EnemyShip extends Sprite {
 	private int WIDTH = 30;
 	private int HEIGHT = 15;
 	private int SPEED;
-	private boolean border = true;
+	private boolean border;
 	private JComponent gameBoard;
+
 	public EnemyShip() {
 
 	}
@@ -27,11 +26,15 @@ public abstract class EnemyShip extends Sprite {
 			border = false;
 		}
 		if (border == true) {
-			x += SPEED + 8;
+			x += SPEED;
 		} else if (border == false) {
-			x -= SPEED + 8;
+			x -= SPEED;
 		}
-		
+
+	}
+	
+	public Rectangle hitbox() {
+		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
 
 	public int getX() {
