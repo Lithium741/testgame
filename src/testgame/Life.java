@@ -10,6 +10,11 @@ public class Life extends Sprite {
 	private int Y = 8;
 	private int WIDTH = 200;
 	private int HEIGHT = 20;
+	GameBoard game;
+	
+	public Life(GameBoard game) {
+		this.game = game;
+	}
 	
 	public void paint(Graphics2D g) {
 		g.setColor(Color.RED);
@@ -18,7 +23,11 @@ public class Life extends Sprite {
 	}
 	
 	public void sDamage() {
-		WIDTH -= 10;
+		WIDTH -= (10 - game.getShip().getDefense());
+	}
+	
+	public void dDamage() {
+		WIDTH -= (20 - game.getShip().getDefense());
 	}
 
 	public int getWIDTH() {

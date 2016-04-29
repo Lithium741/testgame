@@ -7,15 +7,15 @@ import javax.swing.JFrame;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-public class RedShip extends EnemyShip {
-	private int WIDTH = 15;
-	private int HEIGHT = 30;
+public class OrangeShip extends EnemyShip {
+	private int WIDTH = 30;
+	private int HEIGHT = 15;
 	int LoR;
 
-	public RedShip(int x, int y, int SPEED, JComponent gameBoard, int LoR) {
+	public OrangeShip(int x, int y, int SPEED, JComponent gameBoard, int LoR) {
 		super.setX(x);
 		super.setY(y);
-		super.setSPEED(SPEED);
+		super.setSPEED(SPEED+2);
 		super.setGameBoard(gameBoard);
 		this.LoR = LoR;
 		if (LoR == 1) {
@@ -26,7 +26,7 @@ public class RedShip extends EnemyShip {
 	}
 
 	public void paint(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.ORANGE);
 		g.fillRect(super.getX(), super.getY(), WIDTH, HEIGHT);
 	}
 

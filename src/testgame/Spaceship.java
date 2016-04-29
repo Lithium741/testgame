@@ -15,6 +15,7 @@ public class Spaceship extends Sprite {
 	private int WIDTH = 15;
 	private int HEIGHT = 20;
 	private World world;
+	private int defense = 5;
 
 	public Spaceship(World world) {
 		this.world = world;
@@ -37,9 +38,9 @@ public class Spaceship extends Sprite {
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 37)
-			xa = -3;
+			xa = -6;
 		if (e.getKeyCode() == 39)
-			xa = 3;
+			xa = 6;
 	}
 
 	public Rectangle returnBounds() {
@@ -92,5 +93,13 @@ public class Spaceship extends Sprite {
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
 	}
 }

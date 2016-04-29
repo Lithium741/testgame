@@ -33,6 +33,7 @@ public class World extends JFrame {
 	private int score = 0;
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<RedShip> RShip = new ArrayList<RedShip>();
+	private ArrayList<OrangeShip> OShip = new ArrayList<OrangeShip>();
 	private boolean start = false;
 	int a = 0;
 	int eSpeed = 1;
@@ -82,7 +83,7 @@ public class World extends JFrame {
 		txtrPressStartTo.setBounds(207, 224, 206, 62);
 		contentPane.add(txtrPressStartTo);
 
-		p = new GameBoard(ship, shots, RShip);
+		p = new GameBoard(ship, shots, RShip, OShip);
 		p.setBackground(Color.BLACK);
 		p.setLocation(0, 0);
 		p.setSize(569, 792);
@@ -95,9 +96,14 @@ public class World extends JFrame {
 					move();
 					repaint();
 					a++;
-					if (a == 150) {
+					if ((a % 120) == 0) {
 						RShip.add(
 								new RedShip((int) (Math.random() * 585), 10, eSpeed, p, (int) (Math.random() * 2) + 1));
+					}
+
+					if (a == 1000) {
+						OShip.add(new OrangeShip((int) (Math.random() * 585), 10, eSpeed, p,
+								(int) (Math.random() * 2) + 1));
 						a = 0;
 					}
 
@@ -106,7 +112,7 @@ public class World extends JFrame {
 			}
 		};
 
-		int delay = 5;
+		int delay = 13;
 		Timer timer = new Timer(delay, taskPerformer);
 		timer.setInitialDelay(delay);
 
@@ -150,7 +156,7 @@ public class World extends JFrame {
 	}
 
 	private void move() {
-		if (p.life.getWIDTH() == 0) {
+		if (p.getLife().getWIDTH() == 0) {
 			System.exit(0);
 		}
 		ship.move();
@@ -166,13 +172,22 @@ public class World extends JFrame {
 				temp.move();
 			} else if (temp.getY() >= 770) {
 				removeRShip(temp);
-				p.life.sDamage();
+				p.getLife().sDamage();
 			}
 		}
+
+		for (OrangeShip temp : OShip) {
+			if (temp.getY() < 770) {
+				temp.move();
+			} else if (temp.getY() >= 770) {
+				removeOShip(temp);
+				p.getLife().dDamage();
+			}
+		}
+
 		for (RedShip tempS : RShip) {
 			for (Shot temp : shots) {
 				if (temp.returnBounds().intersects(tempS.hitbox())) {
-					System.out.println("collision");
 					removeShot(temp);
 					removeRShip(tempS);
 					score++;
@@ -180,6 +195,18 @@ public class World extends JFrame {
 				}
 			}
 		}
+
+		for (OrangeShip tempS : OShip) {
+			for (Shot temp : shots) {
+				if (temp.returnBounds().intersects(tempS.hitbox())) {
+					removeShot(temp);
+					removeOShip(tempS);
+					score++;
+					txtrScore.setText("Score: " + score);
+				}
+			}
+		}
+
 	}
 
 	public void removeShot(Shot temp) {
@@ -188,6 +215,10 @@ public class World extends JFrame {
 
 	public void removeRShip(RedShip temp) {
 		RShip.remove(temp);
+	}
+
+	public void removeOShip(OrangeShip temp) {
+		OShip.remove(temp);
 	}
 
 	public static void main(String[] args) {

@@ -6,20 +6,22 @@ import java.util.ArrayList;
 
 public class GameBoard extends JComponent {
 
-	Spaceship ship;
-	Life life = new Life();
+	private Spaceship ship;
+	private Life life = new Life(this);
 	private int lifeValue = 200;
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<RedShip> RShip = new ArrayList<RedShip>();
+	private ArrayList<OrangeShip> OShip = new ArrayList<OrangeShip>();
 
 	GameBoard() {
 
 	}
 
-	GameBoard(Spaceship ship, ArrayList<Shot> shots, ArrayList<RedShip> RShip) {
+	GameBoard(Spaceship ship, ArrayList<Shot> shots, ArrayList<RedShip> RShip, ArrayList<OrangeShip> OShip) {
 		this.ship = ship;
 		this.shots = shots;
 		this.RShip = RShip;
+		this.OShip = OShip; 
 	}
 
 	@Override
@@ -38,6 +40,9 @@ public class GameBoard extends JComponent {
 			for (RedShip temp : RShip) {
 				temp.paint(g2d);
 			}
+			for (OrangeShip temp : OShip) {
+				temp.paint(g2d);
+			}
 		}
 	}
 
@@ -47,6 +52,22 @@ public class GameBoard extends JComponent {
 
 	public void setLifeValue(int lifeValue) {
 		this.lifeValue = lifeValue;
+	}
+
+	public Spaceship getShip() {
+		return ship;
+	}
+
+	public void setShip(Spaceship ship) {
+		this.ship = ship;
+	}
+
+	public Life getLife() {
+		return life;
+	}
+
+	public void setLife(Life life) {
+		this.life = life;
 	}
 
 }
