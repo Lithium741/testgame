@@ -12,16 +12,18 @@ public class GameBoard extends JComponent {
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<RedShip> RShip = new ArrayList<RedShip>();
 	private ArrayList<OrangeShip> OShip = new ArrayList<OrangeShip>();
-
+	private ArrayList<BlueShip> BShip = new ArrayList<BlueShip>();
+	
 	GameBoard() {
 
 	}
 
-	GameBoard(Spaceship ship, ArrayList<Shot> shots, ArrayList<RedShip> RShip, ArrayList<OrangeShip> OShip) {
+	GameBoard(Spaceship ship, ArrayList<Shot> shots, ArrayList<RedShip> RShip, ArrayList<OrangeShip> OShip, ArrayList<BlueShip> BShip) {
 		this.ship = ship;
 		this.shots = shots;
 		this.RShip = RShip;
 		this.OShip = OShip; 
+		this.BShip = BShip;
 	}
 
 	@Override
@@ -41,6 +43,9 @@ public class GameBoard extends JComponent {
 				temp.paint(g2d);
 			}
 			for (OrangeShip temp : OShip) {
+				temp.paint(g2d);
+			}
+			for (BlueShip temp : BShip) {
 				temp.paint(g2d);
 			}
 		}
