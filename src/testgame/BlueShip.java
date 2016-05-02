@@ -16,7 +16,7 @@ public class BlueShip extends EnemyShip {
 	public BlueShip(int x, int y, int SPEED, JComponent gameBoard, int LoR) {
 		super.setX(x);
 		super.setY(y);
-		super.setSPEED(SPEED + 1);
+		super.setSPEED(SPEED);
 		super.setGameBoard(gameBoard);
 		this.LoR = LoR;
 		if (LoR == 1) {

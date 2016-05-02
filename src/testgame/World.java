@@ -228,7 +228,7 @@ public class World extends JFrame {
 				if (temp.returnBounds().intersects(tempS.hitbox())) {
 					removeShot(temp);
 					tempS.hit();
-					if (tempS.getDamage() == 10) {
+					if (tempS.getDamage() >= 10) {
 						removeBShip(tempS);
 					}
 					score++;

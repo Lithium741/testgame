@@ -11,7 +11,7 @@ import com.sun.javafx.geom.Rectangle;
 public class Spaceship extends Sprite {
 	private int x = 150;
 	private int xa = 0;
-	private int y = 770;
+	private int y = 750;
 	private int WIDTH = 15;
 	private int HEIGHT = 20;
 	private World world;
