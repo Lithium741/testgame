@@ -10,8 +10,10 @@ import com.sun.javafx.geom.Rectangle;
 
 public class Spaceship extends Sprite {
 	private int x = 150;
+	private int xPoints[] = { x, x + 20, x - 20, x };
 	private int xa = 0;
-	private int y = 750;
+	private int y = 400;
+	private int yPoints[] = { y, y + 15, y + 15, y };
 	private int WIDTH = 15;
 	private int HEIGHT = 20;
 	private World world;
@@ -22,14 +24,15 @@ public class Spaceship extends Sprite {
 	}
 
 	public void move() {
-		if (x + xa > 0 && x + xa < world.getWidth() - 15) {
-			x = x + xa;
+		for (int i = 0; i < xPoints.length; i++) {
+			xPoints[i] += xa;
 		}
+		x += xa;
 	}
 
 	public void paint(Graphics2D g) {
 		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, WIDTH, HEIGHT);
+		g.drawPolygon(xPoints, yPoints, 4);
 	}
 
 	public void keyReleased(KeyEvent e) {

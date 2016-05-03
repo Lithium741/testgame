@@ -24,6 +24,14 @@ public class RedShip extends EnemyShip {
 			super.setBorder(true);
 		}
 	}
+	
+	public void move() {
+		super.setX(super.getX() + super.getSPEED()+4);
+		if (super.getX() >= 550) {
+			super.setX(10);
+			super.setY(super.getY() +20);
+		}
+	}
 
 	public void paint(Graphics2D g) {
 		g.setColor(Color.RED);

@@ -30,7 +30,6 @@ public abstract class EnemyShip extends Sprite {
 		} else if (border == false) {
 			x -= SPEED;
 		}
-
 	}
 	
 	public Rectangle hitbox() {

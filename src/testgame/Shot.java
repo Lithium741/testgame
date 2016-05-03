@@ -8,8 +8,8 @@ public class Shot extends Sprite {
 
 	private int x;
 	private int y;
-	private int WIDTH = 7;
-	private int HEIGHT = 7;
+	private int WIDTH = 3;
+	private int HEIGHT = 15;
 	private int shotSpeed;
 
 	public Shot(int x, int y, int shotSpeed) {
@@ -20,7 +20,7 @@ public class Shot extends Sprite {
 
 	public void paint(Graphics g) {
 		g.setColor(Color.YELLOW);
-		g.fillOval(x + 4, y, WIDTH, HEIGHT);
+		g.fillRect(x - 1, y, WIDTH, HEIGHT);
 	}
 
 	public void move() {

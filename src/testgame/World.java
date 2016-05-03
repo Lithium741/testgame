@@ -35,6 +35,7 @@ public class World extends JFrame {
 	private ArrayList<RedShip> RShip = new ArrayList<RedShip>();
 	private ArrayList<OrangeShip> OShip = new ArrayList<OrangeShip>();
 	private ArrayList<BlueShip> BShip = new ArrayList<BlueShip>();
+	private ArrayList<DShot> dshot = new ArrayList<DShot>();
 	boolean start = false;
 	int a = 0;
 	int eSpeed = 1;
@@ -84,7 +85,7 @@ public class World extends JFrame {
 		txtrPressStartTo.setBounds(207, 224, 206, 62);
 		contentPane.add(txtrPressStartTo);
 
-		p = new GameBoard(ship, shots, RShip, OShip, BShip);
+		p = new GameBoard(ship, shots, RShip, OShip, BShip, dshot);
 		p.setBackground(Color.BLACK);
 		p.setLocation(0, 0);
 		p.setSize(569, 792);
@@ -99,7 +100,7 @@ public class World extends JFrame {
 					a++;
 					if ((a % 120) == 0) {
 						RShip.add(
-								new RedShip((int) (Math.random() * 585), 10, eSpeed, p, (int) (Math.random() * 2) + 1));
+								new RedShip((int) (Math.random() * 585), 50, (int) (Math.random() * 3), p, (int) (Math.random() * 2) + 1));
 					}
 
 					if ((a % 1000) == 0) {
@@ -169,7 +170,7 @@ public class World extends JFrame {
 		for (Shot temp : shots) {
 			if (temp.getY() > 0) {
 				temp.move();
-			} else if (temp.getY() == 0) {
+			} else if (temp.getY() <= 10) {
 				removeShot(temp);
 			}
 		}
@@ -200,6 +201,15 @@ public class World extends JFrame {
 			}
 		}
 
+		for (DShot temp : dshot) {
+			if (temp.getY() < 770) {
+				temp.move();
+			} else if (temp.getY() >= 770) {
+				removeDShot(temp);
+			}
+		}
+
+		
 		for (RedShip tempS : RShip) {
 			for (Shot temp : shots) {
 				if (temp.returnBounds().intersects(tempS.hitbox())) {
@@ -217,6 +227,7 @@ public class World extends JFrame {
 				if (temp.returnBounds().intersects(tempS.hitbox())) {
 					removeShot(temp);
 					removeOShip(tempS);
+					dshot.add(new DShot(temp.getX(), temp.getY()));
 					score++;
 					txtrScore.setText("Score: " + score);
 				}
@@ -253,6 +264,10 @@ public class World extends JFrame {
 
 	public void removeBShip(BlueShip temp) {
 		BShip.remove(temp);
+	}
+	
+	public void removeDShot(DShot temp) {
+		dshot.remove(temp);
 	}
 
 	public static void main(String[] args) {
